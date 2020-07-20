@@ -18,7 +18,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "PartechGSS\\Laravel\\FeatureToggle\\Providers\\FeatureToggleClientProvider"
+                "PartechGSS\\Laravel\\FeatureToggle\\FeatureToggleClientProvider"
             ]
         }
     }
