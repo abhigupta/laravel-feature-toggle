@@ -27,7 +27,9 @@ class FeatureToggleClientProvider extends ServiceProvider
                 return new SplitIOFeatureToggleClient(static::getSplitIOFactory());
             }
 
-            throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
+            // I used to throw this exception here, but it breaks during composer install
+            // because the config isn't set yet.
+            // throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
         });
     }
 
