@@ -2,7 +2,7 @@
     "name": "partechgss/laravel-feature-toggle",
     "description": "Laravel Wrapper for feature toggles.",
     "type": "library",
-    "license": "BSD 3",
+    "license": "BSD-3-Clause-Clear",
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {"PartechGSS\\Laravel\\FeatureToggle\\": "src/"}
