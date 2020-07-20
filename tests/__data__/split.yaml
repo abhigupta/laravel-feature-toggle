@@ -1,0 +1,7 @@
+- FancyFeatureFlag:
+    treatment: off
+- FancierFeatureFlag:
+    treatment: on
+    keys: "user@example.org"
+- FancierFeatureFlag:
+    treatment: off

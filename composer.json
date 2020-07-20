@@ -1,0 +1,25 @@
+{
+    "name": "partechgss/laravel-splitio",
+    "description": "Laravel Wrapper for the SplitIO SDK",
+    "type": "library",
+    "license": "BSD 3",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {"PartechGSS\\Laravel\\FeatureToggle\\": "src/"}
+    },
+    "require": {
+        "splitsoftware/split-sdk-php": "6.2.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^5.3",
+        "phpunit/phpunit": "^9.2",
+        "mikey179/vfsstream": "^1.6"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PartechGSS\\Laravel\\FeatureToggle\\FeatureToggleClientProvider"
+            ]
+        }
+    }
+}
