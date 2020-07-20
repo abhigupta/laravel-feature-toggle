@@ -27,7 +27,7 @@ class FeatureToggleClientProvider extends ServiceProvider
                 return new SplitIOFeatureToggleClient(static::getSplitIOFactory());
             }
 
-            throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.client_provider'));
+            throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
         });
     }
 
