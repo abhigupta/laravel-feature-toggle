@@ -8,7 +8,7 @@ function posix_getpwuid() {
 namespace PartehGSS\Laravel\FreatureToggle\Tests;
 
 use PartechGSS\Laravel\FeatureToggle\Contracts\FeatureToggleClient;
-use PartechGSS\Laravel\FeatureToggle\Providers\FeatureToggleClientProvider;
+use PartechGSS\Laravel\FeatureToggle\FeatureToggleClientProvider;
 
 class SplitIOTest extends \Orchestra\Testbench\TestCase {
     protected function getPackageProviders($app)

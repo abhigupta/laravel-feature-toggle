@@ -1,6 +1,6 @@
 <?php
 
-namespace PartechGSS\Laravel\FeatureToggle\Providers;
+namespace PartechGSS\Laravel\FeatureToggle;
 
 use PartechGSS\Laravel\FeatureToggle\Contracts\FeatureToggleClient;
 use PartechGSS\Laravel\FeatureToggle\Lib\SplitIOFeatureToggleClient;
@@ -19,7 +19,7 @@ class FeatureToggleClientProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../../config/feature-toggle.php', 'feature-toggle'
+            __DIR__.'/../config/feature-toggle.php', 'feature-toggle'
         );
 
         $this->app->singleton(FeatureToggleClient::class, function($app) {
@@ -41,7 +41,7 @@ class FeatureToggleClientProvider extends ServiceProvider
     public function boot(?FeatureToggleClient $client = null, ?Request $request = null)
     {
         $this->publishes([
-            __DIR__.'/../../config/feature-toggle.php' => config_path('feature-toggle.php'),
+            __DIR__.'/../config/feature-toggle.php' => config_path('feature-toggle.php'),
         ]);
 
         if ($client) {
