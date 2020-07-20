@@ -1,1 +1,1 @@
-# laravel-splitio
+# laravel-feature-toggle
