@@ -8,6 +8,7 @@
         "psr-4": {"PartechGSS\\Laravel\\FeatureToggle\\": "src/"}
     },
     "require": {
+        "php": "^7.4",
         "splitsoftware/split-sdk-php": "6.2.4"
     },
     "require-dev": {
