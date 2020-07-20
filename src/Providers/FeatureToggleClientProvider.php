@@ -23,13 +23,13 @@ class FeatureToggleClientProvider extends ServiceProvider
         );
 
         $this->app->singleton(FeatureToggleClient::class, function($app) {
-            if (config('feature-toggle.provider') === 'splitio') {
-                return new SplitIOFeatureToggleClient(static::getSplitIOFactory());
-            }
+            if (config('feature-toggle')) {
+                if (config('feature-toggle.provider') === 'splitio') {
+                    return new SplitIOFeatureToggleClient(static::getSplitIOFactory());
+                }
 
-            // I used to throw this exception here, but it breaks during composer install
-            // because the config isn't set yet.
-            // throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
+                throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
+            }
         });
     }
 
@@ -38,14 +38,16 @@ class FeatureToggleClientProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(FeatureToggleClient $client, Request $request)
+    public function boot(?FeatureToggleClient $client = null, ?Request $request = null)
     {
         $this->publishes([
             __DIR__.'/../../config/feature-toggle.php' => config_path('feature-toggle.php'),
         ]);
 
-        // The SplitIO SDK doesn't allow empty keys.
-        $client->setKey(optional($request->user())->email ?? "__dummy_key__");
+        if ($client) {
+            // The SplitIO SDK doesn't allow empty keys.
+            $client->setKey(optional($request->user())->email ?? "__dummy_key__");
+        }
     }
 
     private static $splitIOFactory;
