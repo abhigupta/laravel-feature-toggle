@@ -1,6 +1,6 @@
 {
-    "name": "partechgss/laravel-splitio",
-    "description": "Laravel Wrapper for the SplitIO SDK",
+    "name": "partechgss/laravel-feature-toggle",
+    "description": "Laravel Wrapper for feature toggles.",
     "type": "library",
     "license": "BSD 3",
     "minimum-stability": "stable",
