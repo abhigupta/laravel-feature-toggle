@@ -2,9 +2,11 @@
 
 namespace PartechGSS\Laravel\FeatureToggle;
 
+use Exception;
 use PartechGSS\Laravel\FeatureToggle\Contracts\FeatureToggleClient;
 use PartechGSS\Laravel\FeatureToggle\Lib\SplitIOFeatureToggleClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 use SplitIO\Sdk;
 use SplitIO\Sdk\Factory\SplitFactoryInterface;
@@ -24,11 +26,15 @@ class FeatureToggleClientProvider extends ServiceProvider
 
         $this->app->singleton(FeatureToggleClient::class, function($app) {
             if (config('feature-toggle')) {
-                if (config('feature-toggle.provider') === 'splitio') {
+                try {
+                    // This code fails when when the $HOME/split.yaml file
+                    // is missing, most notable when run from composer.
+                    // Just log, then ignore it.
                     return new SplitIOFeatureToggleClient(static::getSplitIOFactory());
+                } catch (Exception $e) {
+                    Log::warning("Unable to initialize Split.IO: ({$e->getMessage()}).  All features will default to control treatments.");
+                    return;
                 }
-
-                throw new \Exception("Unrecognized feature toggle provider " . config('feature-toggle.provider'));
             }
         });
     }
