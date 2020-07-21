@@ -30,7 +30,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
      */
     public function getTreatment(string $flag, ?array $attributes = null)
     {
-        return $this->getTreatmentWithConfig($flag, $attributes, true)['treatment'];
+        return optional($this->getTreatmentWithConfig($flag, $attributes, true))['treatment'];
     }
 
     /**
@@ -40,7 +40,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
     {
         return array_map(
             fn($t) => $t['treatment'],
-            $this->getTreatmentsWithConfig($flags, $attributes, true)
+            $this->getTreatmentsWithConfig($flags, $attributes, true) ?? []
         );
     }
 
@@ -49,7 +49,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
      */
     public function getTreatmentWithConfig(string $flag, ?array $attributes = null, bool $raw = false)
     {
-        return $this->getTreatmentsWithConfig([$flag], $attributes, $raw)[$flag];
+        return optional($this->getTreatmentsWithConfig([$flag], $attributes, $raw))[$flag];
     }
 
     /**
