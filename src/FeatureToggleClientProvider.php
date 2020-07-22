@@ -3,7 +3,6 @@
 namespace PartechGSS\Laravel\FeatureToggle;
 
 use Exception;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use PartechGSS\Laravel\FeatureToggle\Contracts\FeatureToggleClient;
 use PartechGSS\Laravel\FeatureToggle\Lib\SplitIOFeatureToggleClient;
 use Illuminate\Support\Facades\Log;
@@ -11,7 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use SplitIO\Sdk;
 use SplitIO\Sdk\Factory\SplitFactoryInterface;
 
-class FeatureToggleClientProvider extends ServiceProvider implements DeferrableProvider
+class FeatureToggleClientProvider extends ServiceProvider
 {
     /**
      * Register services.
