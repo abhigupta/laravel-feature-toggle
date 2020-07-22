@@ -40,28 +40,44 @@ You can install the package via Composer:
     composer require partechgss/laravel-feature-toggles
 
 ## Configuration
-You need to set the toggle "key" somewhere.  This is usually something like a user's email address, used to decide which treatment the user gets for a particular flag.  This package provides middleware that automatically sets the key based on the user's email addesss.  This must be run after your authentication middleware, so, regardless of whether you use it as route or global middleware, I recommend setting the priority in your Kernel.php.
+### Config File
+Looks for `config/feature-toggle.php`.  To install the default one:
+
+    php artisan vendor:publish
+
+### Middleware
+You need to set the toggle "key" somewhere.  This is usually something like a user's email address, used to decide which treatment the user gets for a particular flag.  This package provides middleware that automatically sets the key based on the user's email addesss.  This must be run after your authentication middleware, so, first make it available as route middleware and set the priority in your `app/Http/Kernel.php`.
 
     use PartechGSS\Laravel\FeatureToggle\Middleware\SetFeatureToggleKeyFromUserEmail;
+    protected $routeMiddleware = [
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'feature-toggle' => SetFeatureToggleKeyFromUserEmail::class,
+    ];
     protected $middlewarePriority = [
         \App\Http\Middleware\Authenticate::class,
         SetFeatureToggleKeyFromUserEmail::class,
     ];
 
-### Route Middleware
+#### Execute as Route Middleware
     # routes/api.php
-    Route::middleware([
-        'auth:api',
-        SetFeatureToggleKeyFromUserEmail::class
-    ])->group(function() {
-        ...
+    Route::middleware(['auth:api', 'feature-toggle'])->group(function() {
+        ...,
     });
 
-### Global Middleware
+#### Execute via Route Middleware Groups
     # app/Http/Kernel.php
-    protected $middleware = [
-        ...
-        SetFeatureToggleKeyFromUserEmail::class,
+    protected $middlewareGroups = [
+        'web' => [
+            ...,
+            'feature-toggle',
+        ],
+
+        'api' => [
+            \Barryvdh\Cors\HandleCors::class,
+            'throttle:60,1',
+            'bindings',
+            'feature-toggle',
+        ],
     ];
 
 ## Testing
