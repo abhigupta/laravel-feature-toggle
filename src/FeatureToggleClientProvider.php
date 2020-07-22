@@ -44,16 +44,11 @@ class FeatureToggleClientProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(?FeatureToggleClient $client = null, ?Request $request = null)
+    public function boot()
     {
         $this->publishes([
             __DIR__.'/../config/feature-toggle.php' => config_path('feature-toggle.php'),
         ]);
-
-        if ($client) {
-            // The SplitIO SDK doesn't allow empty keys.
-            $client->setKey(optional($request->user())->email ?? "__dummy_key__");
-        }
     }
 
     private static $splitIOFactory;
