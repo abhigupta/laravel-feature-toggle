@@ -39,6 +39,31 @@ You can install the package via Composer:
 
     composer require partechgss/laravel-feature-toggles
 
+## Configuration
+You need to set the toggle "key" somewhere.  This is usually something like a user's email address, used to decide which treatment the user gets for a particular flag.  This package provides middleware that automatically sets the key based on the user's email addesss.  This must be run after your authentication middleware, so, regardless of whether you use it as route or global middleware, I recommend setting the priority in your Kernel.php.
+
+    use PartechGSS\Laravel\FeatureToggle\Middleware\SetFeatureToggleKeyFromUserEmail;
+    protected $middlewarePriority = [
+        \App\Http\Middleware\Authenticate::class,
+        SetFeatureToggleKeyFromUserEmail::class,
+    ];
+
+### Route Middleware
+    # routes/api.php
+    Route::middleware([
+        'auth:api',
+        SetFeatureToggleKeyFromUserEmail::class
+    ])->group(function() {
+        ...
+    });
+
+### Global Middleware
+    # app/Http/Kernel.php
+    protected $middleware = [
+        ...
+        SetFeatureToggleKeyFromUserEmail::class,
+    ];
+
 ## Testing
 
     composer test
