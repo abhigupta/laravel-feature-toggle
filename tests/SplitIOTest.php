@@ -16,12 +16,14 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
         return [FeatureToggleClientProvider::class];
     }
 
+
     /**
      * Test that the control treatment is returned for a non-existant flag.
      * @test
      * @return void
      */
     public function it_renders_the_control_treatment() {
+        config()->set('feature-toggle.splitio.factory.log.adapter', 'void');
         $toggleClient = app(FeatureToggleClient::class);
         $toggleClient->setKey("unrecognized@example.com");
         $this->assertEquals("control", $toggleClient->getTreatment("AintNoSuchFlag"));
@@ -44,6 +46,7 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
      * @return void
      */
     public function it_renders_an_off_treatment() {
+        config()->set('feature-toggle.splitio.factory.log.adapter', 'void');
         $toggleClient = app(FeatureToggleClient::class);
         $toggleClient->setKey("unrecognized@example.com");
         $this->assertEquals("off", $toggleClient->getTreatment("FancyFeatureFlag"));
@@ -55,6 +58,7 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
      * @return void
      */
     public function it_renders_an_on_treatment_for_user() {
+        config()->set('feature-toggle.splitio.factory.log.adapter', 'void');
         $toggleClient = app(FeatureToggleClient::class);
         $toggleClient->setKey("user@example.org");
         $this->assertEquals("on", $toggleClient->getTreatment("FancierFeatureFlag"));
