@@ -23,7 +23,19 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
      */
     public function it_renders_the_control_treatment() {
         $toggleClient = app(FeatureToggleClient::class);
+        $toggleClient->setKey("unrecognized@example.com");
         $this->assertEquals("control", $toggleClient->getTreatment("AintNoSuchFlag"));
+    }
+
+    /**
+     * Test that the control treatment is returned when the user has not been set.
+     * @test
+     * @return void
+     */
+    public function it_renders_the_control_treatment_without_key() {
+        config()->set('feature-toggle.splitio.factory.log.adapter', 'void');
+        $toggleClient = app(FeatureToggleClient::class);
+        $this->assertEquals("control", $toggleClient->getTreatment("FancyFeatureFlag"));
     }
 
     /**
@@ -33,6 +45,7 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
      */
     public function it_renders_an_off_treatment() {
         $toggleClient = app(FeatureToggleClient::class);
+        $toggleClient->setKey("unrecognized@example.com");
         $this->assertEquals("off", $toggleClient->getTreatment("FancyFeatureFlag"));
     }
 

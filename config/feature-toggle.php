@@ -22,7 +22,7 @@ return [
                 ]
             ],
 
-            'log' => ['adapter' => 'stdout', 'level' => 'error']
+            'log' => ['adapter' => 'syslog', 'level' => 'error']
         ]
     ]
 ];
