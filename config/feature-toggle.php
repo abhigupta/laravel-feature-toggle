@@ -22,7 +22,9 @@ return [
                 ]
             ],
 
-            'log' => ['adapter' => 'stdout', 'level' => 'error']
-        ]
-    ]
+            'log' => ['adapter' => 'stdout', 'level' => 'error'],
+
+            'splitFile' => env('SPLITIO_SPLIT_FILE'),
+        ],
+    ],
 ];

@@ -14,7 +14,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
 
     function __construct(SplitFactoryInterface $factory) {
         $this->splitFactory = $factory;
-        $this->splitClient = $factory->client();
+        $this->splitClient = optional($factory)->client();
     }
 
     public function setAttributes($attributes) {

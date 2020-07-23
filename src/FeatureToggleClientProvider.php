@@ -47,10 +47,13 @@ class FeatureToggleClientProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/feature-toggle.php' => config_path('feature-toggle.php'),
+            'config'
         ]);
     }
 
+    private static $splitIOFactoryInitialized = false;
     private static $splitIOFactory;
+
     /**
      * Return the singleton factory instance.  This is only needed for testing, since
      * SplitIO enforces a singleton factory by returning an error the second time one
@@ -62,12 +65,13 @@ class FeatureToggleClientProvider extends ServiceProvider
      *
      * @return SplitFactoryInterface
      */
-    private static function getSplitIOFactory(): SplitFactoryInterface {
-        if (!static::$splitIOFactory) {
+    private static function getSplitIOFactory(): ?SplitFactoryInterface {
+        if (!static::$splitIOFactoryInitialized) {
             static::$splitIOFactory = Sdk::factory(
                 config('feature-toggle.splitio.api_key'),
                 config('feature-toggle.splitio.factory')
             );
+            static::$splitIOFactoryInitialized = true;
         }
 
         return static::$splitIOFactory;

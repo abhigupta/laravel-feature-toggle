@@ -1,10 +1,5 @@
 <?php
 
-namespace SplitIO\Sdk;
-function posix_getpwuid() {
-    return ['dir' => __DIR__ . '/__data__'];
-}
-
 namespace PartehGSS\Laravel\FreatureToggle\Tests;
 
 use PartechGSS\Laravel\FeatureToggle\Contracts\FeatureToggleClient;
@@ -15,7 +10,6 @@ class SplitIOTest extends \Orchestra\Testbench\TestCase {
     {
         return [FeatureToggleClientProvider::class];
     }
-
 
     /**
      * Test that the control treatment is returned for a non-existant flag.

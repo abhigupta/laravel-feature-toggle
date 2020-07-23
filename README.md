@@ -81,5 +81,19 @@ You need to set the toggle "key" somewhere.  This is usually something like a us
     ];
 
 ## Testing
-
+### This Project
     composer test
+
+### Your Project
+The SplitIO SDK throws errors when it can't find a configuration file in localhost mode.  To work around that, create a dummy local `split.yaml` file and ask the factory to load it.  For example, you can set SPLITIO_SPLIT_FILE in your testing environment to point to your file:
+
+    # .env.testing
+    SPLITIO_SPLIT_FILE=tests/__data__/split.yaml
+
+This assumes a file like this one at `tests/__data__/split.yaml`:
+
+    - hello_world:
+      treatment: off
+    - hello_world:
+      treatment: on
+      keys: "user@example.org"

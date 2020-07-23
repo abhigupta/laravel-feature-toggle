@@ -20,6 +20,7 @@
         <server name="MAIL_DRIVER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
+        <server name="SPLITIO_SPLIT_FILE" value="tests/__data__/split.yaml"/>
     </php>
     <logging>
         <log type="junit" target="./junit.xml"/>
