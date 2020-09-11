@@ -9,7 +9,7 @@ interface FeatureToggleClient {
      * @param string $key
      * @return void
      */
-    public function setKey(string $key);
+    public function setKey($key);
 
     /**
      * Set attributes to be used for subsequent treatment requests.
@@ -17,7 +17,7 @@ interface FeatureToggleClient {
      * @param array $attributes
      * @return void
      */
-    public function setAttributes(array $attributes);
+    public function setAttributes($attributes);
 
     /**
      * Return the treatment for a user and optional attributes.
@@ -29,7 +29,7 @@ interface FeatureToggleClient {
      *
      * @return string
      */
-    public function getTreatment(string $flag, ?array $attributes = null);
+    public function getTreatment($flag, $attributes = null);
 
     /**
      * Return the treatment for a user and optional attributes.
@@ -41,7 +41,7 @@ interface FeatureToggleClient {
      *
      * @return array
      */
-    public function getTreatments(array $flags, ?array $attributes = null);
+    public function getTreatments($flags, $attributes = null);
 
     /**
      * Return the treatments and any configuration data for a user and optional
@@ -55,7 +55,7 @@ interface FeatureToggleClient {
      *
      * @return array
      */
-    public function getTreatmentWithConfig(string $flag, ?array $attributes = null, bool $raw = false);
+    public function getTreatmentWithConfig($flag, $attributes = null, $raw = false);
 
     /**
      * Return the treatment and any configuration data for a user and optional
@@ -70,5 +70,5 @@ interface FeatureToggleClient {
      *
      * @return string|array
      */
-    public function getTreatmentsWithConfig(array $flags, ?array $attributes = null, bool $raw = false);
+    public function getTreatmentsWithConfig($flags, $attributes = null, $raw = false);
 }

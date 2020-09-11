@@ -28,7 +28,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
     /**
      * @inheritDoc
      */
-    public function getTreatment(string $flag, ?array $attributes = null)
+    public function getTreatment($flag, $attributes = null)
     {
         return optional($this->getTreatmentWithConfig($flag, $attributes, true))['treatment'];
     }
@@ -36,10 +36,10 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
     /**
      * @inheritDoc
      */
-    public function getTreatments(array $flags, ?array $attributes = null)
+    public function getTreatments($flags, $attributes = null)
     {
         return array_map(
-            fn($t) => $t['treatment'],
+            function ($t) { return $t['treatment']; },
             $this->getTreatmentsWithConfig($flags, $attributes, true) ?? []
         );
     }
@@ -47,7 +47,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
     /**
      * @inheritDoc
      */
-    public function getTreatmentWithConfig(string $flag, ?array $attributes = null, bool $raw = false)
+    public function getTreatmentWithConfig($flag, $attributes = null, $raw = false)
     {
         return optional($this->getTreatmentsWithConfig([$flag], $attributes, $raw))[$flag];
     }
@@ -55,7 +55,7 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
     /**
      * @inheritDoc
      */
-    public function getTreatmentsWithConfig(array $flags, ?array $attributes = null, bool $raw = false)
+    public function getTreatmentsWithConfig($flags, $attributes = null, $raw = false)
     {
         $treatments = $this->splitClient->getTreatmentsWithConfig(
             $this->key,
@@ -64,7 +64,9 @@ class SplitIOFeatureToggleClient implements FeatureToggleClient {
         );
         if (!$raw) {
             $treatments = array_map(
-                fn($e) => array_merge($e, ['config' => isset($e['config']) ? json_decode($e['config'], true) : null]),
+                function($e) {
+                    return array_merge($e, ['config' => isset($e['config']) ? json_decode($e['config'], true) : null]);
+                },
                 $treatments
             );
         }
